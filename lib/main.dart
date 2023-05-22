@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -75,13 +76,36 @@ class _AvaregSpeedState extends State<AvaregSpeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Avarege Speed'),
+      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('distance is $distance'),
-          Text('speed is $speed'),
-          Text('curentlocation is $currentLocation'),
-          Text('previoslocation is $prevousLocation'),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4)]),
+                child: Center(
+                    child: Text('distance:  ${distance.toStringAsFixed(2)}'))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4)]),
+                child:
+                    Center(child: Text('Speed: ${speed.toStringAsFixed(2)}'))),
+          ),
         ],
       ),
     );
