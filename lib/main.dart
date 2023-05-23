@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mopile_project/calcolate_distance.dart';
 import 'package:mopile_project/getLocation.dart';
 
 void main() {
@@ -11,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,14 +61,16 @@ class _AvaregSpeedState extends State<AvaregSpeed> {
       Location.getUserLocation().then((value) {
         prevousLocation = currentLocation;
         currentLocation = value;
-        setState(() {
-          distance = Geolocator.distanceBetween(
-              prevousLocation!.latitude,
-              prevousLocation!.longitude,
-              currentLocation!.latitude,
-              currentLocation!.longitude);
-          speed = distance / 30;
-        });
+        if (prevousLocation != null) {
+          setState(() {
+            distance = Distance.distanceBetween(
+                prevousLocation!.latitude,
+                prevousLocation!.longitude,
+                currentLocation!.latitude,
+                currentLocation!.longitude);
+            speed = distance / 30;
+          });
+        }
       });
     });
   }
@@ -82,18 +84,6 @@ class _AvaregSpeedState extends State<AvaregSpeed> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4)]),
-                child: Center(
-                    child: Text('distance:  ${distance.toStringAsFixed(2)}'))),
-          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
